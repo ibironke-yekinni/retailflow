@@ -1,0 +1,1035 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>RetailFlow — Capstone Resource Pack</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=DM+Mono:wght@300;400;500&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet"/>
+<style>
+  :root {
+    --black: #0a0a0a;
+    --white: #f5f2ec;
+    --cream: #ede9df;
+    --red: #c9362a;
+    --red-light: #e84a3c;
+    --amber: #d97706;
+    --green: #1a7a4a;
+    --blue: #1a4a7a;
+    --muted: #6b6560;
+    --border: #c8c2b8;
+    --card-bg: #f9f6f0;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    background: var(--white);
+    color: var(--black);
+    font-family: 'DM Mono', monospace;
+    font-size: 14px;
+    line-height: 1.7;
+  }
+
+  /* NAV */
+  nav {
+    position: sticky; top: 0; z-index: 100;
+    background: var(--black);
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 0 40px; height: 56px;
+    border-bottom: 3px solid var(--red);
+  }
+  .nav-brand {
+    font-family: 'Syne', sans-serif;
+    font-weight: 800; font-size: 18px;
+    color: var(--white); letter-spacing: -0.5px;
+  }
+  .nav-brand span { color: var(--red); }
+  .nav-links { display: flex; gap: 32px; }
+  .nav-links a {
+    color: #999; text-decoration: none;
+    font-size: 11px; letter-spacing: 1.5px; text-transform: uppercase;
+    transition: color .2s;
+  }
+  .nav-links a:hover { color: var(--white); }
+
+  /* HERO */
+  .hero {
+    background: var(--black);
+    padding: 80px 40px 64px;
+    border-bottom: 1px solid #222;
+    position: relative; overflow: hidden;
+  }
+  .hero::before {
+    content: 'RETAILFLOW';
+    position: absolute; right: -20px; top: 50%; transform: translateY(-50%);
+    font-family: 'Syne', sans-serif; font-weight: 800;
+    font-size: 140px; color: #ffffff08; letter-spacing: -8px;
+    white-space: nowrap; pointer-events: none;
+  }
+  .hero-tag {
+    display: inline-block;
+    background: var(--red); color: var(--white);
+    font-size: 10px; letter-spacing: 2px; text-transform: uppercase;
+    padding: 4px 12px; margin-bottom: 20px;
+  }
+  .hero h1 {
+    font-family: 'Syne', sans-serif; font-weight: 800;
+    font-size: clamp(36px, 5vw, 64px);
+    color: var(--white); line-height: 1.05;
+    letter-spacing: -2px; max-width: 700px;
+    margin-bottom: 20px;
+  }
+  .hero h1 em { font-style: italic; color: var(--red); font-family: 'Instrument Serif', serif; }
+  .hero-sub {
+    color: #888; font-size: 13px; max-width: 560px;
+    margin-bottom: 40px;
+  }
+  .hero-meta {
+    display: flex; gap: 40px; flex-wrap: wrap;
+  }
+  .meta-item { }
+  .meta-label { font-size: 10px; letter-spacing: 1.5px; text-transform: uppercase; color: #555; }
+  .meta-value { font-family: 'Syne', sans-serif; font-weight: 600; color: var(--white); font-size: 15px; }
+
+  /* SECTIONS */
+  .section {
+    padding: 80px 40px;
+    border-bottom: 1px solid var(--border);
+    max-width: 1100px; margin: 0 auto;
+  }
+  .section-number {
+    font-size: 10px; letter-spacing: 3px; text-transform: uppercase;
+    color: var(--red); font-weight: 500; margin-bottom: 8px;
+  }
+  .section-title {
+    font-family: 'Syne', sans-serif; font-weight: 800;
+    font-size: clamp(28px, 4vw, 44px);
+    letter-spacing: -1.5px; margin-bottom: 8px; line-height: 1.1;
+  }
+  .section-subtitle {
+    color: var(--muted); font-size: 13px; margin-bottom: 48px;
+    max-width: 600px;
+  }
+
+  /* PRODUCT BRIEF */
+  .brief-grid {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 2px;
+    background: var(--border); border: 1px solid var(--border);
+    margin-bottom: 40px;
+  }
+  .brief-cell {
+    background: var(--card-bg);
+    padding: 28px 32px;
+  }
+  .brief-cell.full { grid-column: 1 / -1; }
+  .brief-cell.dark { background: var(--black); color: var(--white); }
+  .cell-label {
+    font-size: 10px; letter-spacing: 2px; text-transform: uppercase;
+    color: var(--muted); margin-bottom: 10px;
+  }
+  .brief-cell.dark .cell-label { color: #666; }
+  .cell-value {
+    font-family: 'Syne', sans-serif; font-weight: 600;
+    font-size: 15px; line-height: 1.5;
+  }
+  .cell-body { font-size: 13px; line-height: 1.8; color: #3a3530; }
+  .brief-cell.dark .cell-body { color: #aaa; }
+
+  .module-grid {
+    display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 16px; margin-bottom: 40px;
+  }
+  .module-card {
+    border: 1px solid var(--border);
+    padding: 20px; background: var(--card-bg);
+    position: relative; overflow: hidden;
+  }
+  .module-card::before {
+    content: '';
+    position: absolute; top: 0; left: 0;
+    width: 3px; height: 100%;
+    background: var(--red);
+  }
+  .module-name {
+    font-family: 'Syne', sans-serif; font-weight: 700;
+    font-size: 13px; margin-bottom: 6px;
+  }
+  .module-desc { font-size: 11px; color: var(--muted); line-height: 1.6; }
+  .module-tag {
+    display: inline-block; margin-top: 10px;
+    font-size: 9px; letter-spacing: 1px; text-transform: uppercase;
+    padding: 2px 8px;
+  }
+  .tag-critical { background: #fde8e6; color: var(--red); }
+  .tag-high { background: #fef3c7; color: var(--amber); }
+  .tag-medium { background: #d1fae5; color: var(--green); }
+
+  /* PAIN POINTS */
+  .pain-list { list-style: none; display: flex; flex-direction: column; gap: 12px; }
+  .pain-item {
+    display: flex; align-items: flex-start; gap: 16px;
+    padding: 16px 20px; background: var(--card-bg); border: 1px solid var(--border);
+  }
+  .pain-num {
+    font-family: 'Syne', sans-serif; font-weight: 800;
+    font-size: 22px; color: var(--red); min-width: 32px;
+    line-height: 1;
+  }
+  .pain-text strong { font-family: 'Syne', sans-serif; font-size: 13px; display: block; margin-bottom: 3px; }
+  .pain-text span { font-size: 12px; color: var(--muted); }
+
+  /* ARCHITECTURE DIAGRAM */
+  .arch-wrap {
+    background: var(--black); border: 1px solid #333;
+    padding: 48px 40px; overflow-x: auto;
+    margin-bottom: 40px;
+  }
+  .arch-title-bar {
+    display: flex; align-items: center; gap: 12px;
+    margin-bottom: 40px;
+  }
+  .dot { width: 10px; height: 10px; border-radius: 50%; }
+  .dot.red { background: #ff5f57; }
+  .dot.yellow { background: #febc2e; }
+  .dot.green { background: #28c840; }
+  .arch-label {
+    font-size: 11px; letter-spacing: 2px; text-transform: uppercase;
+    color: #555; margin-left: auto;
+  }
+
+  /* Architecture layers */
+  .arch-layers { display: flex; flex-direction: column; gap: 0; }
+  .arch-layer {
+    display: flex; align-items: stretch;
+    border: 1px solid #2a2a2a;
+    margin-bottom: 2px;
+  }
+  .layer-label {
+    writing-mode: vertical-lr; transform: rotate(180deg);
+    font-size: 9px; letter-spacing: 2px; text-transform: uppercase;
+    color: #444; padding: 16px 12px;
+    background: #111; min-width: 40px;
+    display: flex; align-items: center; justify-content: center;
+    border-right: 1px solid #2a2a2a;
+  }
+  .layer-content {
+    flex: 1; display: flex; gap: 2px; padding: 12px; flex-wrap: wrap;
+  }
+  .arch-box {
+    flex: 1; min-width: 100px;
+    border: 1px solid;
+    padding: 14px 16px;
+    position: relative;
+  }
+  .arch-box.critical { border-color: #c9362a44; background: #c9362a11; }
+  .arch-box.warning { border-color: #d9770644; background: #d9770611; }
+  .arch-box.stable { border-color: #1a7a4a44; background: #1a7a4a11; }
+  .arch-box.neutral { border-color: #33333366; background: #1a1a1a; }
+  .arch-box-name {
+    font-family: 'Syne', sans-serif; font-weight: 700;
+    font-size: 11px; color: var(--white);
+    margin-bottom: 4px;
+  }
+  .arch-box-tech {
+    font-size: 9px; color: #666; letter-spacing: 0.5px;
+  }
+  .arch-box-badge {
+    position: absolute; top: 8px; right: 8px;
+    font-size: 8px; letter-spacing: 1px; text-transform: uppercase;
+    padding: 2px 6px;
+  }
+  .badge-critical { background: var(--red); color: white; }
+  .badge-warning { background: var(--amber); color: white; }
+  .badge-stable { background: var(--green); color: white; }
+
+  .dep-arrows {
+    padding: 20px 40px 0;
+    font-size: 11px; color: #555;
+    font-style: italic;
+  }
+
+  .legend-row {
+    display: flex; gap: 24px; padding: 20px 40px;
+    flex-wrap: wrap;
+  }
+  .legend-item { display: flex; align-items: center; gap: 8px; }
+  .legend-dot { width: 8px; height: 8px; }
+  .legend-dot.c { background: var(--red); }
+  .legend-dot.w { background: var(--amber); }
+  .legend-dot.s { background: var(--green); }
+  .legend-text { font-size: 10px; color: #666; letter-spacing: 1px; text-transform: uppercase; }
+
+  /* DEPENDENCY CALLOUTS */
+  .dep-grid {
+    display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 16px; margin-top: 32px;
+  }
+  .dep-card {
+    border: 1px solid var(--border); padding: 20px;
+    background: var(--card-bg);
+  }
+  .dep-from {
+    font-family: 'Syne', sans-serif; font-weight: 700; font-size: 12px;
+    color: var(--red); text-transform: uppercase; letter-spacing: 1px;
+    margin-bottom: 6px;
+  }
+  .dep-arrow { color: var(--muted); font-size: 11px; margin: 4px 0; }
+  .dep-to { font-size: 12px; color: var(--black); line-height: 1.6; }
+
+  /* ROADMAP */
+  .roadmap-header {
+    display: grid; grid-template-columns: 80px 1fr 100px 120px 120px;
+    gap: 2px; background: var(--black);
+    padding: 12px 20px;
+    font-size: 9px; letter-spacing: 2px; text-transform: uppercase; color: #666;
+    margin-bottom: 2px;
+  }
+  .roadmap-row {
+    display: grid; grid-template-columns: 80px 1fr 100px 120px 120px;
+    gap: 2px; background: var(--border);
+    margin-bottom: 2px;
+  }
+  .roadmap-cell {
+    background: var(--card-bg); padding: 16px 20px;
+    font-size: 12px;
+  }
+  .roadmap-cell.dark { background: var(--black); color: var(--white); }
+  .phase-tag {
+    font-family: 'Syne', sans-serif; font-weight: 700;
+    font-size: 11px; letter-spacing: 1px;
+  }
+  .phase-p1 { color: var(--blue); }
+  .phase-p2 { color: var(--amber); }
+  .phase-p3 { color: var(--red); }
+  .risk-badge {
+    display: inline-block; padding: 2px 8px;
+    font-size: 9px; letter-spacing: 1px; text-transform: uppercase;
+    font-weight: 600;
+  }
+  .risk-high { background: #fde8e6; color: var(--red); }
+  .risk-med { background: #fef3c7; color: var(--amber); }
+  .risk-low { background: #d1fae5; color: var(--green); }
+  .status-badge {
+    display: inline-block; padding: 2px 8px;
+    font-size: 9px; letter-spacing: 1px; text-transform: uppercase;
+  }
+  .status-done { background: #d1fae5; color: var(--green); }
+  .status-wip { background: #fef3c7; color: var(--amber); }
+  .status-pending { background: #f3f4f6; color: #666; }
+  .status-blocked { background: #fde8e6; color: var(--red); }
+
+  .gap-table {
+    width: 100%; border-collapse: collapse; margin-top: 40px;
+  }
+  .gap-table th {
+    background: var(--black); color: var(--white);
+    padding: 12px 16px; text-align: left;
+    font-size: 10px; letter-spacing: 2px; text-transform: uppercase;
+    font-weight: 500;
+  }
+  .gap-table td {
+    padding: 14px 16px; border-bottom: 1px solid var(--border);
+    font-size: 12px; vertical-align: top;
+  }
+  .gap-table tr:hover td { background: var(--cream); }
+  .gap-num {
+    font-family: 'Syne', sans-serif; font-weight: 800;
+    color: var(--red); font-size: 16px;
+  }
+  .gap-title { font-weight: 500; font-family: 'Syne', sans-serif; font-size: 13px; }
+  .gap-desc { font-size: 11px; color: var(--muted); margin-top: 4px; }
+
+  /* STAKEHOLDER CARDS */
+  .stakeholder-grid {
+    display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 16px; margin-top: 32px;
+  }
+  .stakeholder-card {
+    border: 1px solid var(--border); padding: 24px;
+    background: var(--card-bg); position: relative;
+  }
+  .s-role {
+    font-size: 10px; letter-spacing: 2px; text-transform: uppercase;
+    color: var(--red); margin-bottom: 6px;
+  }
+  .s-name {
+    font-family: 'Syne', sans-serif; font-weight: 800;
+    font-size: 18px; margin-bottom: 4px;
+  }
+  .s-dept { font-size: 11px; color: var(--muted); margin-bottom: 16px; }
+  .s-assume-label {
+    font-size: 10px; letter-spacing: 1.5px; text-transform: uppercase;
+    color: var(--muted); margin-bottom: 6px;
+  }
+  .s-assume {
+    font-style: italic; font-size: 12px;
+    border-left: 3px solid var(--red); padding-left: 12px;
+    color: #3a3530; line-height: 1.7;
+    font-family: 'Instrument Serif', serif;
+  }
+  .s-probe {
+    margin-top: 14px; font-size: 11px; color: var(--muted);
+  }
+  .s-probe strong { color: var(--black); }
+
+  /* FOOTER */
+  footer {
+    background: var(--black); padding: 40px;
+    text-align: center;
+  }
+  .footer-brand {
+    font-family: 'Syne', sans-serif; font-weight: 800;
+    font-size: 24px; color: var(--white); letter-spacing: -1px;
+    margin-bottom: 8px;
+  }
+  .footer-brand span { color: var(--red); }
+  .footer-sub { font-size: 11px; color: #555; }
+
+  /* UTILITY */
+  .divider {
+    border: none; border-top: 1px solid var(--border);
+    margin: 40px 0;
+  }
+  .callout {
+    background: var(--black); color: var(--white);
+    padding: 20px 24px; margin: 24px 0;
+    border-left: 4px solid var(--red);
+    font-size: 12px; line-height: 1.8;
+  }
+  .callout strong { color: var(--red); }
+
+  @media (max-width: 768px) {
+    nav { padding: 0 20px; }
+    .nav-links { display: none; }
+    .hero { padding: 48px 20px; }
+    .section { padding: 48px 20px; }
+    .brief-grid { grid-template-columns: 1fr; }
+    .roadmap-header, .roadmap-row { grid-template-columns: 1fr; }
+    .roadmap-header { display: none; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-brand">Retail<span>Flow</span></div>
+  <div class="nav-links">
+    <a href="#brief">Product Brief</a>
+    <a href="#architecture">Architecture</a>
+    <a href="#roadmap">Roadmap</a>
+    <a href="#stakeholders">Stakeholders</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<div class="hero">
+  <div style="max-width:1100px;margin:0 auto;">
+    <div class="hero-tag">Capstone Resource Pack · Beyond Test Execution Workshop</div>
+    <h1>RetailFlow<br/><em>War Room Dossier</em></h1>
+    <p class="hero-sub">Everything your group needs to begin Day 1. Three primary documents: the Product Brief, Legacy Architecture Diagram, and the Fictional Project Roadmap.</p>
+    <div class="hero-meta">
+      <div class="meta-item">
+        <div class="meta-label">Platform</div>
+        <div class="meta-value">www.retailflow.io</div>
+      </div>
+      <div class="meta-item">
+        <div class="meta-label">Migration Type</div>
+        <div class="meta-value">Monolith → Microservices</div>
+      </div>
+      <div class="meta-item">
+        <div class="meta-label">Classification</div>
+        <div class="meta-value">FICTIONAL · Workshop Use Only</div>
+      </div>
+      <div class="meta-item">
+        <div class="meta-label">Deadline</div>
+        <div class="meta-value">Friday 12:00 PM</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- ═══════════════════════════════════════════════════════ -->
+<!-- SECTION 1: PRODUCT BRIEF                               -->
+<!-- ═══════════════════════════════════════════════════════ -->
+<div id="brief" style="background: var(--white);">
+<div class="section">
+  <div class="section-number">Document 01 of 03</div>
+  <div class="section-title">Product Brief</div>
+  <p class="section-subtitle">Understand RetailFlow: what it does, who it serves, and what the migration is trying to achieve.</p>
+
+  <div class="brief-grid">
+    <div class="brief-cell dark full">
+      <div class="cell-label">Executive Summary</div>
+      <div class="cell-body">RetailFlow is a mid-market B2C e-commerce platform serving over 280,000 active customers across Nigeria, Ghana, and Kenya. Founded in 2017, it was built as a PHP monolith on a single MySQL database. Revenue has grown 340% in four years, but the architecture has not scaled with it. The platform now suffers from cascading failures, deployment freezes, and an average incident resolution time of 6.4 hours. The board has approved a full migration to a microservices architecture hosted on AWS, with a hard go-live deadline that cannot move.</div>
+    </div>
+    <div class="brief-cell">
+      <div class="cell-label">Industry</div>
+      <div class="cell-value">B2C E-Commerce · Retail</div>
+    </div>
+    <div class="brief-cell">
+      <div class="cell-label">Founded</div>
+      <div class="cell-value">2017 · Lagos, Nigeria</div>
+    </div>
+    <div class="brief-cell">
+      <div class="cell-label">Active Users</div>
+      <div class="cell-value">280,000+</div>
+    </div>
+    <div class="brief-cell">
+      <div class="cell-label">Monthly GMV</div>
+      <div class="cell-value">₦2.4 Billion</div>
+    </div>
+    <div class="brief-cell">
+      <div class="cell-label">Current Stack (Legacy)</div>
+      <div class="cell-value">PHP 7.2 · MySQL 5.7 · Apache · Monolith</div>
+    </div>
+    <div class="brief-cell">
+      <div class="cell-label">Target Stack (New)</div>
+      <div class="cell-value">Node.js · PostgreSQL · AWS ECS · REST + Events</div>
+    </div>
+    <div class="brief-cell">
+      <div class="cell-label">Current MTTR</div>
+      <div class="cell-value">6.4 hours avg.</div>
+    </div>
+    <div class="brief-cell">
+      <div class="cell-label">Target MTTR Post-Migration</div>
+      <div class="cell-value">&lt;45 minutes</div>
+    </div>
+    <div class="brief-cell full">
+      <div class="cell-label">The Migration Goal</div>
+      <div class="cell-body">Decompose the monolith into eight independent microservices, each owning its own database. Services will communicate via REST APIs and asynchronous events through AWS SQS. The migration must preserve all existing customer data, maintain 99.5% uptime during cutover, and deliver a 60% improvement in checkout performance. The team has 90 days. This capstone places your group at Day 82 — eight days before go-live.</div>
+    </div>
+  </div>
+
+  <h3 style="font-family:'Syne',sans-serif;font-size:18px;margin-bottom:20px;letter-spacing:-0.5px;">System Modules</h3>
+  <div class="module-grid">
+    <div class="module-card">
+      <div class="module-name">Auth Service</div>
+      <div class="module-desc">User registration, login, JWT issuance, session management, and OAuth integrations.</div>
+      <span class="module-tag tag-high">High Risk</span>
+    </div>
+    <div class="module-card">
+      <div class="module-name">Product Catalogue</div>
+      <div class="module-desc">Product listings, categories, search/filter, pricing engine, and merchant uploads.</div>
+      <span class="module-tag tag-medium">Stable</span>
+    </div>
+    <div class="module-card">
+      <div class="module-name">Cart & Checkout</div>
+      <div class="module-desc">Session cart, promo codes, tax calculations, and checkout flow orchestration.</div>
+      <span class="module-tag tag-critical">Critical</span>
+    </div>
+    <div class="module-card">
+      <div class="module-name">Payments</div>
+      <div class="module-desc">Paystack and Flutterwave integration, refunds, payment reconciliation, and fraud flags.</div>
+      <span class="module-tag tag-critical">Critical</span>
+    </div>
+    <div class="module-card">
+      <div class="module-name">Inventory</div>
+      <div class="module-desc">Stock levels, warehouse allocation, low-stock alerts, and reservation locks.</div>
+      <span class="module-tag tag-critical">Critical</span>
+    </div>
+    <div class="module-card">
+      <div class="module-name">Order Management</div>
+      <div class="module-desc">Order lifecycle from confirmed to delivered. Returns, cancellations, and disputes.</div>
+      <span class="module-tag tag-high">High Risk</span>
+    </div>
+    <div class="module-card">
+      <div class="module-name">Fulfillment</div>
+      <div class="module-desc">3PL integrations, dispatch triggers, tracking updates, and delivery SLA monitoring.</div>
+      <span class="module-tag tag-high">High Risk</span>
+    </div>
+    <div class="module-card">
+      <div class="module-name">Notifications</div>
+      <div class="module-desc">Email, SMS, and push notifications triggered by order and payment events.</div>
+      <span class="module-tag tag-medium">Stable</span>
+    </div>
+  </div>
+
+  <h3 style="font-family:'Syne',sans-serif;font-size:18px;margin-bottom:20px;margin-top:48px;letter-spacing:-0.5px;">Known Pain Points Going Into Migration</h3>
+  <ul class="pain-list">
+    <li class="pain-item">
+      <div class="pain-num">01</div>
+      <div class="pain-text">
+        <strong>Shared Database Coupling</strong>
+        <span>All eight modules currently share a single MySQL schema. The migration to separate databases has not been fully tested under concurrency. Inventory and Payments both write to the same `orders` table.</span>
+      </div>
+    </li>
+    <li class="pain-item">
+      <div class="pain-num">02</div>
+      <div class="pain-text">
+        <strong>No Circuit Breakers</strong>
+        <span>If the Payment service degrades, the Checkout service has no fallback — it hangs indefinitely. This caused the 14-hour outage in March that cost ₦180M in lost GMV.</span>
+      </div>
+    </li>
+    <li class="pain-item">
+      <div class="pain-num">03</div>
+      <div class="pain-text">
+        <strong>Inventory Race Conditions</strong>
+        <span>Under peak load (e.g., flash sales), multiple checkout sessions can reserve the same item simultaneously. The legacy system resolves this with a cron job — not real-time locking.</span>
+      </div>
+    </li>
+    <li class="pain-item">
+      <div class="pain-num">04</div>
+      <div class="pain-text">
+        <strong>Async Event Bus Untested</strong>
+        <span>The new SQS-based event bus has never been load tested. Nobody knows what happens to Fulfillment and Notifications queues during a flash sale of 10,000 concurrent orders.</span>
+      </div>
+    </li>
+    <li class="pain-item">
+      <div class="pain-num">05</div>
+      <div class="pain-text">
+        <strong>Data Migration Gaps</strong>
+        <span>Legacy customer records include ~4,200 orphaned orders (no matching user_id) and ~900 products with NULL category fields. These have not been resolved in the migration scripts.</span>
+      </div>
+    </li>
+  </ul>
+</div>
+</div>
+
+
+<!-- ═══════════════════════════════════════════════════════ -->
+<!-- SECTION 2: ARCHITECTURE DIAGRAM                        -->
+<!-- ═══════════════════════════════════════════════════════ -->
+<div id="architecture" style="background: var(--cream);">
+<div class="section">
+  <div class="section-number">Document 02 of 03</div>
+  <div class="section-title">Legacy Architecture<br/>& Dependency Map</div>
+  <p class="section-subtitle">A structural view of the monolith being migrated and the critical failure chains your group must trace.</p>
+
+  <div class="arch-wrap">
+    <div class="arch-title-bar">
+      <div class="dot red"></div><div class="dot yellow"></div><div class="dot green"></div>
+      <span class="arch-label">RetailFlow · System Architecture · Legacy → Target State</span>
+    </div>
+
+    <div class="arch-layers">
+
+      <!-- CLIENT LAYER -->
+      <div class="arch-layer">
+        <div class="layer-label">Client</div>
+        <div class="layer-content">
+          <div class="arch-box stable" style="flex:2">
+            <div class="arch-box-name">Web App (React SPA)</div>
+            <div class="arch-box-tech">retailflow.io · Hosted on CloudFront CDN</div>
+            <span class="arch-box-badge badge-stable">Stable</span>
+          </div>
+          <div class="arch-box stable">
+            <div class="arch-box-name">Mobile App (React Native)</div>
+            <div class="arch-box-tech">iOS + Android · v3.2.1</div>
+            <span class="arch-box-badge badge-stable">Stable</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- GATEWAY LAYER -->
+      <div class="arch-layer">
+        <div class="layer-label">Gateway</div>
+        <div class="layer-content">
+          <div class="arch-box warning" style="flex:1">
+            <div class="arch-box-name">API Gateway</div>
+            <div class="arch-box-tech">AWS API Gateway · Rate limiting unconfirmed</div>
+            <span class="arch-box-badge badge-warning">Review</span>
+          </div>
+          <div class="arch-box warning">
+            <div class="arch-box-name">Auth Middleware</div>
+            <div class="arch-box-tech">JWT validation · No token blacklist yet</div>
+            <span class="arch-box-badge badge-warning">Review</span>
+          </div>
+          <div class="arch-box neutral">
+            <div class="arch-box-name">Load Balancer</div>
+            <div class="arch-box-tech">AWS ALB · Round-robin</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- SERVICE LAYER -->
+      <div class="arch-layer">
+        <div class="layer-label">Services</div>
+        <div class="layer-content">
+          <div class="arch-box stable">
+            <div class="arch-box-name">Auth Service</div>
+            <div class="arch-box-tech">Node.js · PORT 3001</div>
+          </div>
+          <div class="arch-box stable">
+            <div class="arch-box-name">Catalogue Service</div>
+            <div class="arch-box-tech">Node.js · PORT 3002</div>
+          </div>
+          <div class="arch-box critical">
+            <div class="arch-box-name">Cart Service</div>
+            <div class="arch-box-tech">Node.js · PORT 3003</div>
+            <span class="arch-box-badge badge-critical">Critical</span>
+          </div>
+          <div class="arch-box critical">
+            <div class="arch-box-name">Payment Service</div>
+            <div class="arch-box-tech">Node.js · PORT 3004</div>
+            <span class="arch-box-badge badge-critical">Critical</span>
+          </div>
+          <div class="arch-box critical">
+            <div class="arch-box-name">Inventory Service</div>
+            <div class="arch-box-tech">Node.js · PORT 3005</div>
+            <span class="arch-box-badge badge-critical">Critical</span>
+          </div>
+          <div class="arch-box warning">
+            <div class="arch-box-name">Order Service</div>
+            <div class="arch-box-tech">Node.js · PORT 3006</div>
+            <span class="arch-box-badge badge-warning">Review</span>
+          </div>
+          <div class="arch-box warning">
+            <div class="arch-box-name">Fulfillment Service</div>
+            <div class="arch-box-tech">Node.js · PORT 3007</div>
+            <span class="arch-box-badge badge-warning">Review</span>
+          </div>
+          <div class="arch-box stable">
+            <div class="arch-box-name">Notification Service</div>
+            <div class="arch-box-tech">Node.js · PORT 3008</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- MESSAGE LAYER -->
+      <div class="arch-layer">
+        <div class="layer-label">Events</div>
+        <div class="layer-content">
+          <div class="arch-box critical" style="flex:1">
+            <div class="arch-box-name">AWS SQS — Payment Events Queue</div>
+            <div class="arch-box-tech">payment.confirmed · payment.failed · payment.refunded</div>
+            <span class="arch-box-badge badge-critical">Untested at Scale</span>
+          </div>
+          <div class="arch-box warning" style="flex:1">
+            <div class="arch-box-name">AWS SQS — Order Events Queue</div>
+            <div class="arch-box-tech">order.created · order.cancelled · order.dispatched</div>
+            <span class="arch-box-badge badge-warning">Partial Tests</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- DATABASE LAYER -->
+      <div class="arch-layer">
+        <div class="layer-label">Data</div>
+        <div class="layer-content">
+          <div class="arch-box stable">
+            <div class="arch-box-name">auth_db</div>
+            <div class="arch-box-tech">PostgreSQL · AWS RDS</div>
+          </div>
+          <div class="arch-box stable">
+            <div class="arch-box-name">catalogue_db</div>
+            <div class="arch-box-tech">PostgreSQL · AWS RDS</div>
+          </div>
+          <div class="arch-box critical">
+            <div class="arch-box-name">payments_db</div>
+            <div class="arch-box-tech">PostgreSQL · Dual-write RISK</div>
+            <span class="arch-box-badge badge-critical">Risk</span>
+          </div>
+          <div class="arch-box critical">
+            <div class="arch-box-name">inventory_db</div>
+            <div class="arch-box-tech">PostgreSQL · Race Condition RISK</div>
+            <span class="arch-box-badge badge-critical">Risk</span>
+          </div>
+          <div class="arch-box warning">
+            <div class="arch-box-name">orders_db</div>
+            <div class="arch-box-tech">PostgreSQL · Orphaned records</div>
+            <span class="arch-box-badge badge-warning">Review</span>
+          </div>
+          <div class="arch-box stable">
+            <div class="arch-box-name">notifications_db</div>
+            <div class="arch-box-tech">PostgreSQL · AWS RDS</div>
+          </div>
+        </div>
+      </div>
+
+    </div><!-- end arch-layers -->
+
+    <div class="legend-row">
+      <div class="legend-item"><div class="legend-dot c"></div><span class="legend-text">Critical — Failure = Revenue Loss</span></div>
+      <div class="legend-item"><div class="legend-dot w"></div><span class="legend-text">Under Review — Needs Probe</span></div>
+      <div class="legend-item"><div class="legend-dot s"></div><span class="legend-text">Stable — Low Risk</span></div>
+    </div>
+  </div>
+
+  <!-- DEPENDENCY CALLOUTS -->
+  <h3 style="font-family:'Syne',sans-serif;font-size:18px;margin-bottom:8px;letter-spacing:-0.5px;">Critical Failure Chains</h3>
+  <p style="font-size:12px;color:var(--muted);margin-bottom:24px;">These are the cascades your group must trace and document in Section 1 of the PQEB.</p>
+  <div class="dep-grid">
+    <div class="dep-card">
+      <div class="dep-from">⚡ Chain 01 — Payment Cascade</div>
+      <div class="dep-arrow">Payment Service fails ↓</div>
+      <div class="dep-to">→ Cart cannot confirm checkout<br/>→ Order Service never receives order.created event<br/>→ Inventory reservation lock never releases<br/>→ Fulfillment never dispatches<br/>→ Customer receives no notification</div>
+    </div>
+    <div class="dep-card">
+      <div class="dep-from">⚡ Chain 02 — Inventory Race</div>
+      <div class="dep-arrow">Flash sale triggers 800 concurrent checkouts ↓</div>
+      <div class="dep-to">→ Inventory DB cannot lock fast enough<br/>→ Overselling occurs (stock goes negative)<br/>→ Order confirmations sent for unavailable items<br/>→ Fulfillment fails silently<br/>→ Manual refund queue overwhelmed</div>
+    </div>
+    <div class="dep-card">
+      <div class="dep-from">⚡ Chain 03 — SQS Queue Backup</div>
+      <div class="dep-arrow">Event bus saturates under load ↓</div>
+      <div class="dep-to">→ Fulfillment events delayed 15–40 mins<br/>→ Notification Service sends stale status updates<br/>→ Customer support call volume spikes<br/>→ SLA breaches trigger penalty clauses with 3PL partners</div>
+    </div>
+    <div class="dep-card">
+      <div class="dep-from">⚡ Chain 04 — Auth Token Gap</div>
+      <div class="dep-arrow">Logout does not blacklist JWT token ↓</div>
+      <div class="dep-to">→ Stolen token remains valid until expiry (24 hrs)<br/>→ Fraudulent orders placed on compromised accounts<br/>→ Payment Service processes charges<br/>→ No real-time fraud detection in new stack</div>
+    </div>
+  </div>
+
+  <div class="callout">
+    <strong>Your Group's Mission:</strong> Map these chains in your Dependency Graph. For each chain, identify the exact API call, DB query, or event that is the single point of failure. This becomes your evidence in the Go/No-Go Dossier.
+  </div>
+</div>
+</div>
+
+
+<!-- ═══════════════════════════════════════════════════════ -->
+<!-- SECTION 3: PROJECT ROADMAP                             -->
+<!-- ═══════════════════════════════════════════════════════ -->
+<div id="roadmap" style="background: var(--white);">
+<div class="section">
+  <div class="section-number">Document 03 of 03</div>
+  <div class="section-title">Project Roadmap<br/><span style="font-family:'Instrument Serif',serif;font-style:italic;color:var(--red);">Red-Line This.</span></div>
+  <p class="section-subtitle">This is the document your group will scrutinise in Section 1 of the PQEB. Find the five high-risk logic gaps. Red-line them. Justify your challenge.</p>
+
+  <div class="callout">
+    <strong>FACILITATOR NOTE:</strong> This roadmap has been deliberately seeded with logic gaps, missing dependencies, optimistic assumptions, and silent risks. Your group's job is to identify at least five of them and document the evidence for each.
+  </div>
+
+  <!-- ROADMAP TABLE -->
+  <div class="roadmap-header">
+    <div>Phase</div>
+    <div>Milestone / Deliverable</div>
+    <div>Owner</div>
+    <div>Status</div>
+    <div>Risk Level</div>
+  </div>
+
+  <!-- PHASE 1 -->
+  <div class="roadmap-row">
+    <div class="roadmap-cell"><span class="phase-tag phase-p1">P1</span></div>
+    <div class="roadmap-cell"><strong>Database schema migration scripts written and reviewed</strong><br/><span style="font-size:11px;color:var(--muted);">All legacy tables mapped to new per-service schemas. Includes orphan record handling.</span></div>
+    <div class="roadmap-cell">DB Team</div>
+    <div class="roadmap-cell"><span class="status-badge status-done">Done</span></div>
+    <div class="roadmap-cell"><span class="risk-badge risk-med">Medium</span></div>
+  </div>
+  <div class="roadmap-row">
+    <div class="roadmap-cell"><span class="phase-tag phase-p1">P1</span></div>
+    <div class="roadmap-cell"><strong>Auth Service deployed to staging</strong><br/><span style="font-size:11px;color:var(--muted);">JWT issuance working. Token refresh tested. OAuth Google integration live.</span></div>
+    <div class="roadmap-cell">Backend</div>
+    <div class="roadmap-cell"><span class="status-badge status-done">Done</span></div>
+    <div class="roadmap-cell"><span class="risk-badge risk-low">Low</span></div>
+  </div>
+  <div class="roadmap-row">
+    <div class="roadmap-cell"><span class="phase-tag phase-p1">P1</span></div>
+    <div class="roadmap-cell"><strong>Product Catalogue Service deployed and tested</strong><br/><span style="font-size:11px;color:var(--muted);">Search, filter, pricing, and merchant upload APIs verified against Postman collection.</span></div>
+    <div class="roadmap-cell">Backend</div>
+    <div class="roadmap-cell"><span class="status-badge status-done">Done</span></div>
+    <div class="roadmap-cell"><span class="risk-badge risk-low">Low</span></div>
+  </div>
+
+  <!-- PHASE 2 -->
+  <div class="roadmap-row">
+    <div class="roadmap-cell"><span class="phase-tag phase-p2">P2</span></div>
+    <div class="roadmap-cell"><strong>Payment Service integrated with Paystack (live keys)</strong><br/><span style="font-size:11px;color:var(--muted);">End-to-end payment confirmed. Webhook handler deployed. Refund flow tested in sandbox.</span></div>
+    <div class="roadmap-cell">Payments Team</div>
+    <div class="roadmap-cell"><span class="status-badge status-done">Done</span></div>
+    <div class="roadmap-cell"><span class="risk-badge risk-high">High</span></div>
+  </div>
+  <div class="roadmap-row">
+    <div class="roadmap-cell"><span class="phase-tag phase-p2">P2</span></div>
+    <div class="roadmap-cell"><strong>Inventory Service deployed with stock reservation logic</strong><br/><span style="font-size:11px;color:var(--muted);">Reservation tested with 10 concurrent users. Considered sufficient for launch.</span></div>
+    <div class="roadmap-cell">Backend</div>
+    <div class="roadmap-cell"><span class="status-badge status-done">Done</span></div>
+    <div class="roadmap-cell"><span class="risk-badge risk-med">Medium</span></div>
+  </div>
+  <div class="roadmap-row">
+    <div class="roadmap-cell"><span class="phase-tag phase-p2">P2</span></div>
+    <div class="roadmap-cell"><strong>Cart & Checkout Service end-to-end integration complete</strong><br/><span style="font-size:11px;color:var(--muted);">Cart-to-payment flow tested. Promo code engine verified. Tax calculation confirmed for Lagos only.</span></div>
+    <div class="roadmap-cell">Backend + QA</div>
+    <div class="roadmap-cell"><span class="status-badge status-wip">In Progress</span></div>
+    <div class="roadmap-cell"><span class="risk-badge risk-high">High</span></div>
+  </div>
+  <div class="roadmap-row">
+    <div class="roadmap-cell"><span class="phase-tag phase-p2">P2</span></div>
+    <div class="roadmap-cell"><strong>SQS event bus configured for all services</strong><br/><span style="font-size:11px;color:var(--muted);">Payment and Order queues live. Retry logic set to 3 attempts. Dead-letter queue configured.</span></div>
+    <div class="roadmap-cell">Infra Team</div>
+    <div class="roadmap-cell"><span class="status-badge status-done">Done</span></div>
+    <div class="roadmap-cell"><span class="risk-badge risk-high">High</span></div>
+  </div>
+
+  <!-- PHASE 3 -->
+  <div class="roadmap-row">
+    <div class="roadmap-cell"><span class="phase-tag phase-p3">P3</span></div>
+    <div class="roadmap-cell"><strong>Order Management Service deployed and tested</strong><br/><span style="font-size:11px;color:var(--muted);">Order lifecycle confirmed: created → confirmed → dispatched → delivered. Returns flow pending.</span></div>
+    <div class="roadmap-cell">Backend</div>
+    <div class="roadmap-cell"><span class="status-badge status-wip">In Progress</span></div>
+    <div class="roadmap-cell"><span class="risk-badge risk-high">High</span></div>
+  </div>
+  <div class="roadmap-row">
+    <div class="roadmap-cell"><span class="phase-tag phase-p3">P3</span></div>
+    <div class="roadmap-cell"><strong>Fulfillment Service integrated with 3PL partner (GIG Logistics)</strong><br/><span style="font-size:11px;color:var(--muted);">Dispatch webhook tested. Tracking updates confirmed. Abuja and Lagos routes only.</span></div>
+    <div class="roadmap-cell">Integrations</div>
+    <div class="roadmap-cell"><span class="status-badge status-wip">In Progress</span></div>
+    <div class="roadmap-cell"><span class="risk-badge risk-high">High</span></div>
+  </div>
+  <div class="roadmap-row">
+    <div class="roadmap-cell"><span class="phase-tag phase-p3">P3</span></div>
+    <div class="roadmap-cell"><strong>Load testing of full checkout flow completed</strong><br/><span style="font-size:11px;color:var(--muted);">PM has confirmed this will be done by the dev team internally. No external QA involvement planned.</span></div>
+    <div class="roadmap-cell">Dev Team</div>
+    <div class="roadmap-cell"><span class="status-badge status-pending">Pending</span></div>
+    <div class="roadmap-cell"><span class="risk-badge risk-high">High</span></div>
+  </div>
+  <div class="roadmap-row">
+    <div class="roadmap-cell"><span class="phase-tag phase-p3">P3</span></div>
+    <div class="roadmap-cell"><strong>Data migration executed on production database</strong><br/><span style="font-size:11px;color:var(--muted);">Scheduled for the night before go-live. Estimated runtime: 2 hours. No rollback plan documented.</span></div>
+    <div class="roadmap-cell">DB Team</div>
+    <div class="roadmap-cell"><span class="status-badge status-pending">Pending</span></div>
+    <div class="roadmap-cell"><span class="risk-badge risk-high">High</span></div>
+  </div>
+  <div class="roadmap-row">
+    <div class="roadmap-cell"><span class="phase-tag phase-p3">P3</span></div>
+    <div class="roadmap-cell"><strong>Go-live: Full cutover from monolith to microservices</strong><br/><span style="font-size:11px;color:var(--muted);">Legacy system will be decommissioned at 11:59 PM on go-live night. No parallel run planned.</span></div>
+    <div class="roadmap-cell">CTO</div>
+    <div class="roadmap-cell"><span class="status-badge status-blocked">Go-Live</span></div>
+    <div class="roadmap-cell"><span class="risk-badge risk-high">High</span></div>
+  </div>
+
+  <!-- GAP TABLE -->
+  <h3 style="font-family:'Syne',sans-serif;font-size:18px;margin-bottom:8px;margin-top:56px;letter-spacing:-0.5px;">Seeded Logic Gaps — For Facilitator Reference</h3>
+  <p style="font-size:12px;color:var(--muted);margin-bottom:24px;">These are the deliberate gaps hidden in the roadmap above. Groups must independently identify and articulate them.</p>
+
+  <table class="gap-table">
+    <thead>
+      <tr>
+        <th>#</th>
+        <th>Gap Title</th>
+        <th>Where It Hides</th>
+        <th>Why It's Dangerous</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><div class="gap-num">G1</div></td>
+        <td>
+          <div class="gap-title">Inventory tested at 10 users, not 10,000</div>
+          <div class="gap-desc">The roadmap says "considered sufficient for launch" after 10 concurrent users — a flash sale drives 800+.</div>
+        </td>
+        <td>Phase 2 · Inventory Service</td>
+        <td>Overselling, negative stock, manual refund chaos</td>
+      </tr>
+      <tr>
+        <td><div class="gap-num">G2</div></td>
+        <td>
+          <div class="gap-title">No rollback plan for production data migration</div>
+          <div class="gap-desc">Scheduled night-before with no rollback documentation. If the script fails at 3AM, go-live proceeds anyway.</div>
+        </td>
+        <td>Phase 3 · Data Migration</td>
+        <td>Irrecoverable data corruption with no fallback</td>
+      </tr>
+      <tr>
+        <td><div class="gap-num">G3</div></td>
+        <td>
+          <div class="gap-title">Tax calculation only confirmed for Lagos</div>
+          <div class="gap-desc">RetailFlow serves Nigeria, Ghana, and Kenya. Tax logic for Abuja, Port Harcourt, Accra, and Nairobi is unverified.</div>
+        </td>
+        <td>Phase 2 · Cart & Checkout</td>
+        <td>Incorrect billing in 60%+ of geographic coverage</td>
+      </tr>
+      <tr>
+        <td><div class="gap-num">G4</div></td>
+        <td>
+          <div class="gap-title">Load testing self-assessed by Dev Team with no QA oversight</div>
+          <div class="gap-desc">PM confirmed load testing is internal only. No independent QA engineer, no defined pass/fail threshold.</div>
+        </td>
+        <td>Phase 3 · Load Testing</td>
+        <td>Happy-path bias baked into the test design</td>
+      </tr>
+      <tr>
+        <td><div class="gap-num">G5</div></td>
+        <td>
+          <div class="gap-title">No parallel run — legacy decommissioned same night as go-live</div>
+          <div class="gap-desc">Zero overlap between old and new system. No canary deployment. No traffic shadowing. Big bang cutover.</div>
+        </td>
+        <td>Phase 3 · Go-Live</td>
+        <td>Single failure point with 280,000 live users and ₦2.4B monthly GMV at risk</td>
+      </tr>
+      <tr>
+        <td><div class="gap-num">G6</div></td>
+        <td>
+          <div class="gap-title">JWT token blacklist not implemented</div>
+          <div class="gap-desc">Auth Service does not blacklist tokens on logout. Compromised sessions remain valid for 24 hours.</div>
+        </td>
+        <td>Phase 1 · Auth Service</td>
+        <td>Active fraud window on every customer account post-logout</td>
+      </tr>
+      <tr>
+        <td><div class="gap-num">G7</div></td>
+        <td>
+          <div class="gap-title">Fulfillment only tested for Lagos and Abuja routes</div>
+          <div class="gap-desc">3PL integration confirmed for two routes. RetailFlow ships to 28 states and 3 countries. Other routes untested.</div>
+        </td>
+        <td>Phase 3 · Fulfillment Service</td>
+        <td>Silent fulfillment failures in 90%+ of shipping destinations</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+</div>
+
+
+<!-- ═══════════════════════════════════════════════════════ -->
+<!-- SECTION 4: STAKEHOLDER PERSONAS                        -->
+<!-- ═══════════════════════════════════════════════════════ -->
+<div id="stakeholders" style="background: var(--cream);">
+<div class="section">
+  <div class="section-number">Bonus Resource</div>
+  <div class="section-title">Stakeholder Personas</div>
+  <p class="section-subtitle">Use these in Section 3 of the PQEB. Each persona has a stated assumption that your group must challenge using the Socratic method.</p>
+
+  <div class="stakeholder-grid">
+    <div class="stakeholder-card">
+      <div class="s-role">Product Manager</div>
+      <div class="s-name">Tunde Adeyemi</div>
+      <div class="s-dept">Head of Product · RetailFlow</div>
+      <div class="s-assume-label">Stated Assumption</div>
+      <div class="s-assume">"We tested payments in sandbox and it worked fine. There is no reason to test it again in production before go-live. That would just delay us."</div>
+      <div class="s-probe"><strong>Your probe:</strong> What is the difference between sandbox and production Paystack behaviour? What does "worked fine" mean — what were the pass/fail criteria?</div>
+    </div>
+    <div class="stakeholder-card">
+      <div class="s-role">Backend Engineer</div>
+      <div class="s-name">Chisom Okafor</div>
+      <div class="s-dept">Lead Engineer · Payments & Inventory</div>
+      <div class="s-assume-label">Stated Assumption</div>
+      <div class="s-assume">"The inventory reservation logic is fine. We tested it with 10 users and it held. The database is PostgreSQL now — it can handle anything."</div>
+      <div class="s-probe"><strong>Your probe:</strong> What is the specific transaction isolation level in use? How does PostgreSQL handle write contention at 500 concurrent INSERTS to the same row?</div>
+    </div>
+    <div class="stakeholder-card">
+      <div class="s-role">DevOps / Infra Lead</div>
+      <div class="s-name">Emeka Nwosu</div>
+      <div class="s-dept">Infrastructure · AWS</div>
+      <div class="s-assume-label">Stated Assumption</div>
+      <div class="s-assume">"We've set SQS retries to 3 and have a dead-letter queue. That's the industry standard. The event bus is ready for launch."</div>
+      <div class="s-probe"><strong>Your probe:</strong> What is the SQS visibility timeout set to? What happens to a dead-lettered payment event — is there an automated recovery process or manual intervention?</div>
+    </div>
+    <div class="stakeholder-card">
+      <div class="s-role">CTO</div>
+      <div class="s-name">Ngozi Eze</div>
+      <div class="s-dept">Chief Technology Officer</div>
+      <div class="s-assume-label">Stated Assumption</div>
+      <div class="s-assume">"We cannot afford a parallel run — the cost of running two systems simultaneously for even two weeks is ₦12M. We cut over in one night or we miss the window."</div>
+      <div class="s-probe"><strong>Your probe:</strong> What is the cost of a 6-hour outage on go-live night given ₦2.4B monthly GMV? How does ₦12M compare to the revenue risk of a failed cutover?</div>
+    </div>
+  </div>
+</div>
+</div>
+
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-brand">Retail<span>Flow</span></div>
+  <div class="footer-sub" style="margin-bottom:8px;">www.retailflow.io · Fictional platform created for educational use</div>
+  <div class="footer-sub">Beyond Test Execution Workshop · Africa Product Quality Engineering Conference · Testify Ltd</div>
+  <div style="margin-top:24px;font-size:10px;color:#333;letter-spacing:1px;text-transform:uppercase;">
+    ⚠️ All companies, names, data, and URLs in this document are entirely fictional and created for workshop purposes only.
+  </div>
+</footer>
+
+</body>
+</html>
